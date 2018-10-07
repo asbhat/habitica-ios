@@ -23,7 +23,10 @@ public extension CustomizationProtocol {
         guard let key = key else {
             return nil
         }
-        switch type {
+        guard let typeName = type else {
+            return nil
+        }
+        switch typeName {
         case "shirt":
             return "\(preferences?.size ?? "")_shirt_\(key)"
         case "skin":
@@ -34,7 +37,8 @@ public extension CustomizationProtocol {
             return "chair_\(key)"
         case "hair":
             let hairColor = preferences?.hair?.color ?? ""
-            switch group {
+            guard let groupName = group else { return nil }
+            switch groupName {
             case "bangs":
                 return "hair_bangs_\(key)_\(hairColor)"
             case "base":
@@ -77,7 +81,8 @@ public extension CustomizationProtocol {
     }
     
     var userPath: String {
-        switch type {
+        guard let typeName = type else { return "" }
+        switch typeName {
         case "shirt":
             return "preferences.shirt"
         case "skin":
@@ -85,7 +90,8 @@ public extension CustomizationProtocol {
         case "background":
             return "preferences.background"
         case "hair":
-            switch group {
+            guard let groupName = group else { return "" }
+            switch groupName {
             case "bangs":
                 return "preferences.hair.bangs"
             case "base":

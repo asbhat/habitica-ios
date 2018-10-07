@@ -19,7 +19,8 @@ public protocol QuestDropItemProtocol {
 
 public extension QuestDropItemProtocol {
     var imageName: String {
-        switch type {
+        guard let typeName = type else { return "shop_\(key ?? "")" }
+        switch typeName {
         case "quests":
             return "inventory_quest_scroll_\(key ?? "")"
         case "eggs":
